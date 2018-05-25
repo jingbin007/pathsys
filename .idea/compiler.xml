@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="qupath-core" />
+        <module name="qupath-core-awt" />
+        <module name="qupath-core-processing" />
+        <module name="qupath-core-processing-awt" />
+        <module name="qupath-extension-ij" />
+        <module name="qupath-extension-input" />
+        <module name="qupath-extension-opencv" />
+        <module name="qupath-extension-openslide" />
+        <module name="qupath-extension-pen" />
+        <module name="qupath-extension-script-editor" />
+        <module name="qupath-gui-fx" />
+        <module name="qupath-processing-ij" />
+        <module name="qupath-processing-opencv" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="qupath" target="1.5" />
+      <module name="qupath-core" target="1.8" />
+      <module name="qupath-core-awt" target="1.8" />
+      <module name="qupath-core-processing" target="1.8" />
+      <module name="qupath-core-processing-awt" target="1.8" />
+      <module name="qupath-extension-ij" target="1.8" />
+      <module name="qupath-extension-input" target="1.8" />
+      <module name="qupath-extension-opencv" target="1.8" />
+      <module name="qupath-extension-openslide" target="1.8" />
+      <module name="qupath-extension-pen" target="1.8" />
+      <module name="qupath-extension-script-editor" target="1.8" />
+      <module name="qupath-gui-fx" target="1.8" />
+      <module name="qupath-processing-ij" target="1.8" />
+      <module name="qupath-processing-opencv" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

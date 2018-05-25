@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@ import qupath.lib.gui.panels.classify.ClassifierBuilderPanel;
  */
 public class OpenCvClassifierCommand implements PathCommand {
 	
-	final private static String name = "Create detection classifier";
+	final private static String name = "创建检测分类器";
 	
 	private QuPathGUI qupath;
 	

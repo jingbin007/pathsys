@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -284,9 +284,9 @@ public class PathPrefs {
 			prefs.removeNode();
 			prefs.flush();
 			resetProperty.set(!resetProperty.get());
-			logger.info("Preferences have been reset");
+			logger.info("重置设置成功");
 		} catch (BackingStoreException e) {
-			logger.error("Failed to reset preferences", e);
+			logger.error("重置设置失败", e);
 		}
 	}
 	

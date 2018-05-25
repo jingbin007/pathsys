@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -42,11 +42,11 @@ public class ResetPreferencesCommand implements PathCommand {
 
 	@Override
 	public void run() {
-		if (DisplayHelpers.showConfirmDialog("Reset Preferences", "Do you want to reset all custom preferences?\n\nYou may have to restart QuPath to see all changes.")) {
+		if (DisplayHelpers.showConfirmDialog("重置设置", "是否确认全部设置?\n\n您可以重启系统后启用设置.")) {
 			PathPrefs.resetPreferences();
 		}
 		else
-			logger.info("Reset preferences command skipped!");
+			logger.info("忽略设置命令!");
 	}
 
 }

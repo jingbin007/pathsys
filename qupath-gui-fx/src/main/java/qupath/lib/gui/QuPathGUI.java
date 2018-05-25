@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -646,9 +646,9 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		
 		
 		// Add scripts menu (delayed to here, since it takes a bit longer)
-		Menu menuAutomate = getMenu("Automate", false);
+		Menu menuAutomate = getMenu("自动化", false);
 		ScriptEditor editor = getScriptEditor();
-		sharedScriptMenuLoader = new ScriptMenuLoader("Shared scripts...", PathPrefs.scriptsPathProperty(), (DefaultScriptEditor)editor);
+		sharedScriptMenuLoader = new ScriptMenuLoader("复用脚本...", PathPrefs.scriptsPathProperty(), (DefaultScriptEditor)editor);
 		StringBinding projectScriptsPath = Bindings.createStringBinding(() -> {
 			if (project.get() == null)
 				return null;
@@ -666,7 +666,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 			addMenuItems(
 					menuAutomate,
 					null,
-					createCommandAction(new SampleScriptLoader(this), "Open sample scripts"),
+					createCommandAction(new SampleScriptLoader(this), "打开样例脚本"),
 					projectScriptMenuLoader.getMenu(),
 					sharedScriptMenuLoader.getMenu()
 					);
@@ -1776,7 +1776,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		CheckMenuItem miTMAMissing = new CheckMenuItem("Set core missing");
 		miTMAMissing.setOnAction(e -> setTMACoreMissing(viewer.getHierarchy(), true));
 		
-		Menu menuTMA = new Menu("TMA");
+		Menu menuTMA = new Menu("组织芯片");
 		addMenuItems(
 				menuTMA,
 				miTMAValid,
@@ -2217,7 +2217,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 						return true;
 					}
 				} catch (Exception e) {
-					DisplayHelpers.showErrorMessage("Open project", "Could not open " + fileNew.getName() + " as a QuPath project");
+					DisplayHelpers.showErrorMessage("打开工程", "无法打开 " + fileNew.getName() + " 作为工程");
 					return false;
 				}
 		}
@@ -2246,7 +2246,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 			}
 			else {
 				// Show an error message if we can't open the file
-				DisplayHelpers.showErrorNotification("Open image", "Sorry, I can't open " + pathNew);
+				DisplayHelpers.showErrorNotification("打开图像", "无法打开 " + pathNew);
 //				logger.error("Unable to build whole slide server for path '{}'", pathNew);
 			}
 		}
@@ -2605,14 +2605,14 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		
 		// Create a recent projects list
 		ObservableList<File> recentProjects = PathPrefs.getRecentProjectList();
-		Menu menuRecent = createMenu("Recent projects...");
+		Menu menuRecent = createMenu("最近的工程...");
 		
 		
 		// Create a File menu
 		Menu menuFile = createMenu(
-				"File",
+				"文件",
 				createMenu(
-						"Project...",
+						"工程...",
 						getActionMenuItem(GUIActions.PROJECT_NEW),
 						getActionMenuItem(GUIActions.PROJECT_OPEN),
 						getActionMenuItem(GUIActions.PROJECT_CLOSE),
@@ -2626,21 +2626,21 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				null,
 				getActionMenuItem(GUIActions.OPEN_IMAGE),
 				getActionMenuItem(GUIActions.OPEN_IMAGE_OR_URL),
-				createCommandAction(new RevertCommand(this), "Revert", null, new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN)),
+				createCommandAction(new RevertCommand(this), "返回", null, new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN)),
 				null,
 				getActionMenuItem(GUIActions.SAVE_DATA_AS),
 				getActionMenuItem(GUIActions.SAVE_DATA),
 				null,
 				createMenu(
-						"Export snapshot...",
-						createCommandAction(new SaveViewCommand(this, true), "Window snapshot"),
-						createCommandAction(new SaveViewCommand(this, false), "Viewer snapshot")
+						"导出快照...",
+						createCommandAction(new SaveViewCommand(this, true), "Windows截屏"),
+						createCommandAction(new SaveViewCommand(this, false), "视图浏览器截屏")
 						),
-				createCommandAction(new ExportImageRegionCommand(this), "Export image region"),
+				createCommandAction(new ExportImageRegionCommand(this), "输出图像区域"),
 				null,
 				getActionMenuItem(GUIActions.TMA_SCORE_IMPORTER),
 				getActionMenuItem(GUIActions.TMA_EXPORT_DATA),
-				createCommandAction(new TMAViewerCommand(), "Launch TMA data viewer")
+				createCommandAction(new TMAViewerCommand(), "登录TMA数据查看器")
 				);
 		
 		
@@ -2662,7 +2662,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 						project = ProjectIO.loadProject(fileProject, BufferedImage.class);
 						setProject(project);
 					} catch (Exception e1) {
-						DisplayHelpers.showErrorMessage("Project error", "Cannot find project " + fileProject.getName());
+						DisplayHelpers.showErrorMessage("工程错误", "无法找到工程 " + fileProject.getName());
 					}
 				});
 				menuRecent.getItems().add(item);
@@ -2672,18 +2672,18 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		
 		// Create Edit menu
 		Menu menuEdit = createMenu(
-				"Edit",
+				"编辑",
 				getActionMenuItem(GUIActions.COPY_VIEW),
 				getActionMenuItem(GUIActions.COPY_WINDOW),
 				null,
 				getActionMenuItem(GUIActions.PREFERENCES),
-				createCommandAction(new ResetPreferencesCommand(), "Reset preferences")
+				createCommandAction(new ResetPreferencesCommand(), "重置设置")
 				);
 
 		// Create Tools menu
 		ToggleGroup groupTools = new ToggleGroup();
 		Menu menuTools = createMenu(
-				"Tools",
+				"工具",
 				getActionCheckBoxMenuItem(GUIActions.MOVE_TOOL, groupTools),
 				getActionCheckBoxMenuItem(GUIActions.RECTANGLE_TOOL, groupTools),
 				getActionCheckBoxMenuItem(GUIActions.ELLIPSE_TOOL, groupTools),
@@ -2694,23 +2694,23 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				getActionCheckBoxMenuItem(GUIActions.POINTS_TOOL, groupTools)
 				);
 		
-		Menu menuGestures = createMenu("Multi-touch gestures");
+		Menu menuGestures = createMenu("多点手势功能");
 		addMenuItems(
 				menuGestures,
-				ActionUtils.createMenuItem(new Action("Turn on all gestures", e -> {
+				ActionUtils.createMenuItem(new Action("开启手势", e -> {
 					PathPrefs.setUseScrollGestures(true);
 					PathPrefs.setUseZoomGestures(true);
 					PathPrefs.setUseRotateGestures(true);
 				})),
-				ActionUtils.createMenuItem(new Action("Turn off all gestures", e -> {
+				ActionUtils.createMenuItem(new Action("关闭手势", e -> {
 					PathPrefs.setUseScrollGestures(false);
 					PathPrefs.setUseZoomGestures(false);
 					PathPrefs.setUseRotateGestures(false);
 				})),
 				null,
-				ActionUtils.createCheckMenuItem(createSelectableCommandAction(PathPrefs.useScrollGesturesProperty(), "Use scroll gestures")),
-				ActionUtils.createCheckMenuItem(createSelectableCommandAction(PathPrefs.useZoomGesturesProperty(), "Use zoom gestures")),
-				ActionUtils.createCheckMenuItem(createSelectableCommandAction(PathPrefs.useRotateGesturesProperty(), "Use rotate gestures"))
+				ActionUtils.createCheckMenuItem(createSelectableCommandAction(PathPrefs.useScrollGesturesProperty(), "启用滚动手势")),
+				ActionUtils.createCheckMenuItem(createSelectableCommandAction(PathPrefs.useZoomGesturesProperty(), "启用缩放手势")),
+				ActionUtils.createCheckMenuItem(createSelectableCommandAction(PathPrefs.useRotateGesturesProperty(), "启用旋转手势"))
 				);
 		addMenuItems(
 				menuTools,
@@ -2738,7 +2738,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		SlideLabelView slideLabelView = new SlideLabelView(this);
 		ToggleGroup groupCellDisplay = new ToggleGroup();
 		Menu menuView = createMenu(
-				"View",
+				"视图",
 				getActionCheckBoxMenuItem(GUIActions.SHOW_ANALYSIS_PANEL),
 				getActionMenuItem(GUIActions.SHOW_COMMAND_LIST),
 //				createSelectableCommandAction(pinCommandList, "Pin command list", (Node)null, new KeyCodeCombination(KeyCode.L, KeyCombination.SHORTCUT_DOWN)),
@@ -2748,7 +2748,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				getActionCheckBoxMenuItem(GUIActions.TOGGLE_SYNCHRONIZE_VIEWERS),
 				null,
 				createMenu(
-						"Zoom",
+						"缩放",
 						createCommandAction(new ViewerSetDownsampleCommand(this, 0.25), "400%"),
 						createCommandAction(new ViewerSetDownsampleCommand(this, 1), "100%"),
 						createCommandAction(new ViewerSetDownsampleCommand(this, 2), "50%"),
@@ -2762,7 +2762,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				getActionMenuItem(GUIActions.ROTATE_IMAGE),
 				null,
 				createMenu(
-						"Cell display",
+						"细胞显示",
 						getActionCheckBoxMenuItem(GUIActions.SHOW_CELL_BOUNDARIES, groupCellDisplay),
 						getActionCheckBoxMenuItem(GUIActions.SHOW_CELL_NUCLEI, groupCellDisplay),
 						getActionCheckBoxMenuItem(GUIActions.SHOW_CELL_BOUNDARIES_AND_NUCLEI, groupCellDisplay)
@@ -2773,7 +2773,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				getActionCheckBoxMenuItem(GUIActions.SHOW_TMA_GRID_LABELS),
 				getActionCheckBoxMenuItem(GUIActions.SHOW_OBJECTS),
 				getActionCheckBoxMenuItem(GUIActions.FILL_OBJECTS),
-				createCheckMenuItem(createSelectableCommandAction(overlayOptions.showConnectionsProperty(), "Show object connections")),
+				createCheckMenuItem(createSelectableCommandAction(overlayOptions.showConnectionsProperty(), "显示对象连接")),
 				null,
 				getActionCheckBoxMenuItem(GUIActions.SHOW_OVERVIEW),
 				getActionCheckBoxMenuItem(GUIActions.SHOW_LOCATION),
@@ -2783,16 +2783,16 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				null,
 				getActionMenuItem(GUIActions.VIEW_TRACKER),
 				getActionMenuItem(GUIActions.MINI_VIEWER),
-				createCheckMenuItem(createSelectableCommandAction(slideLabelView.showingProperty(), "Show slide label")),				
+				createCheckMenuItem(createSelectableCommandAction(slideLabelView.showingProperty(), "显示切片标签")),
 				null,
 				getActionMenuItem(GUIActions.SHOW_LOG)
 			);
 		
 		
 		Menu menuObjects = createMenu(
-				"Objects",
+				"对象",
 				createMenu(
-						"Delete...",
+						"删除...",
 						getActionMenuItem(GUIActions.DELETE_SELECTED_OBJECTS),
 						null,
 						getActionMenuItem(GUIActions.CLEAR_HIERARCHY),
@@ -2800,58 +2800,58 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 						getActionMenuItem(GUIActions.CLEAR_DETECTIONS)
 						),
 				createMenu(
-						"Select...",
-						createCommandAction(new ResetSelectionCommand(this), "Reset selection", null, new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN, KeyCodeCombination.SHIFT_DOWN)),
+						"选择...",
+						createCommandAction(new ResetSelectionCommand(this), "重置选择", null, new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN, KeyCodeCombination.SHIFT_DOWN)),
 						null,
-						createCommandAction(new SelectObjectsByClassCommand(this, TMACoreObject.class), "Select TMA cores"),
-						createCommandAction(new SelectObjectsByClassCommand(this, PathAnnotationObject.class), "Select annotations"),
-						createCommandAction(new SelectObjectsByClassCommand(this, PathDetectionObject.class), "Select detections"),
-						createCommandAction(new SelectObjectsByClassCommand(this, PathCellObject.class), "Select cells"),
+						createCommandAction(new SelectObjectsByClassCommand(this, TMACoreObject.class), "选择TMA核心"),
+						createCommandAction(new SelectObjectsByClassCommand(this, PathAnnotationObject.class), "选择标记"),
+						createCommandAction(new SelectObjectsByClassCommand(this, PathDetectionObject.class), "选择检测"),
+						createCommandAction(new SelectObjectsByClassCommand(this, PathCellObject.class), "选择细胞"),
 						null,
-						createCommandAction(new SelectObjectsByMeasurementCommand(this), "Select by measurements (experimental)")
+						createCommandAction(new SelectObjectsByMeasurementCommand(this), "根据测量值选择对象 (测试)")
 						),
 				null,
 				getActionMenuItem(GUIActions.RIGID_OBJECT_EDITOR),
 				getActionMenuItem(GUIActions.SPECIFY_ANNOTATION),
-				createPluginAction("Expand annotations", DilateAnnotationPlugin.class, null, false),
+				createPluginAction("扩展标记", DilateAnnotationPlugin.class, null, false),
 				getActionMenuItem(GUIActions.SELECT_ALL_ANNOTATION),
 				getActionMenuItem(GUIActions.ANNOTATION_DUPLICATE),
 				getActionMenuItem(GUIActions.TRANSFER_ANNOTATION),
 				null,
-				createCommandAction(new InverseObjectCommand(this), "Make inverse annotation"),
-				createCommandAction(new MergeSelectedAnnotationsCommand(this), "Merge selected annotations"),
-				createCommandAction(new ShapeSimplifierCommand(this), "Simplify annotation shape")
+				createCommandAction(new InverseObjectCommand(this), "反向标注"),
+				createCommandAction(new MergeSelectedAnnotationsCommand(this), "合并选定标记"),
+				createCommandAction(new ShapeSimplifierCommand(this), "简化标记形状")
 				);
 
 		
 		Menu menuTMA = createMenu(
-				"TMA",
+				"组织芯片",
 				createMenu(
-					"Add...",
-					createCommandAction(new TMAGridAdd(this, TMAAddType.ROW_BEFORE), "Add TMA row before"),
-					createCommandAction(new TMAGridAdd(this, TMAAddType.ROW_AFTER), "Add TMA row after"),
-					createCommandAction(new TMAGridAdd(this, TMAAddType.COLUMN_BEFORE), "Add TMA column before"),
-					createCommandAction(new TMAGridAdd(this, TMAAddType.COLUMN_AFTER), "Add TMA column after")
+					"添加...",
+					createCommandAction(new TMAGridAdd(this, TMAAddType.ROW_BEFORE), "在上方添加TMA行"),
+					createCommandAction(new TMAGridAdd(this, TMAAddType.ROW_AFTER), "在下方添加TMA行"),
+					createCommandAction(new TMAGridAdd(this, TMAAddType.COLUMN_BEFORE), "在上方添加TMA列"),
+					createCommandAction(new TMAGridAdd(this, TMAAddType.COLUMN_AFTER), "在下方添加TMA列")
 					),
 				createMenu(
-						"Remove...",
-						createCommandAction(new TMAGridRemove(this, TMARemoveType.ROW), "Remove TMA row"),
-						createCommandAction(new TMAGridRemove(this, TMARemoveType.COLUMN), "Remove TMA column")
+						"移除...",
+						createCommandAction(new TMAGridRemove(this, TMARemoveType.ROW), "删除TMA行"),
+						createCommandAction(new TMAGridRemove(this, TMARemoveType.COLUMN), "删除TMA列")
 						),
 				getActionMenuItem(GUIActions.TMA_RELABEL),
-				createCommandAction(new TMAGridReset(this), "Reset TMA metadata"),
+				createCommandAction(new TMAGridReset(this), "重置TMA元数据"),
 				getActionMenuItem(GUIActions.CLEAR_TMA_CORES),
-				createCommandAction(new TMAGridView(this), "TMA grid summary view"),
+				createCommandAction(new TMAGridView(this), "TMA网格预览"),
 //				createCommandAction(new TMAExplorer(this), "TMA explorer (experimental)"),
 				null,
-				createPluginAction("Find convex hull detections (TMA)", FindConvexHullDetectionsPlugin.class, this, false, null)
+				createPluginAction("凸包检测 (TMA)", FindConvexHullDetectionsPlugin.class, this, false, null)
 				);
 		
 		
 		Menu menuMeasure = createMenu(
-				"Measure",
+				"测量",
 				getActionMenuItem(GUIActions.MEASUREMENT_MAP),
-				createCommandAction(new MeasurementManager(this), "Show measurement manager"),
+				createCommandAction(new MeasurementManager(this), "显示测量管理器"),
 				null,
 				getActionMenuItem(GUIActions.SUMMARY_TMA),
 				getActionMenuItem(GUIActions.SUMMARY_ANNOTATIONS),
@@ -2864,83 +2864,83 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		
 		
 		// Try to load a script editor
-		Action actionScriptEditor = createCommandAction(new ShowScriptEditorCommand(this, false), "Show script editor");
+		Action actionScriptEditor = createCommandAction(new ShowScriptEditorCommand(this, false), "显示脚本编辑器");
 		actionScriptEditor.setAccelerator(new KeyCodeCombination(KeyCode.BRACELEFT, KeyCodeCombination.SHORTCUT_DOWN, KeyCodeCombination.SHIFT_ANY));	
 		Menu menuAutomate = createMenu(
-				"Automate",
+				"自动化",
 				actionScriptEditor,
-				createCommandAction(new ScriptInterpreterCommand(this), "Script interpreter"),
+				createCommandAction(new ScriptInterpreterCommand(this), "脚本解释器"),
 				null,
 				getActionMenuItem(GUIActions.WORKFLOW_DISPLAY),
-				createCommandAction(new ShowScriptEditorCommand(this, true), "Create command history script")
+				createCommandAction(new ShowScriptEditorCommand(this, true), "创建历史操作脚本")
 				);
 		
 		// Add some plugins
 		Menu menuAnalysis = createMenu(
-				"Analyze",
+				"分析",
 				createMenu(
-						"Preprocessing",
+						"预处理",
 						getActionMenuItem(GUIActions.COLOR_DECONVOLUTION_REFINE)
 						),
 				createMenu(
-						"Region identification",
+						"区域标记",
 						createMenu(
-								"Tiles & superpixels",
-								createPluginAction("Create tiles", TilerPlugin.class, this, false, null)
+								"图块 & 超像素",
+								createPluginAction("创建图块", TilerPlugin.class, this, false, null)
 								)
 						),
 				createMenu(
-						"Calculate features",
+						"特征计算",
 //						new PathPluginAction("Create tiles", TilerPlugin.class, this),
-						createPluginAction("Add Intensity features (experimental)", IntensityFeaturesPlugin.class, this, true, null),
-						createPluginAction("Add Haralick texture features (legacy)", HaralickFeaturesPlugin.class, this, true, null),
+						createPluginAction("添加亮度特征 (测试)", IntensityFeaturesPlugin.class, this, true, null),
+						createPluginAction("添加Haralick纹理特征", HaralickFeaturesPlugin.class, this, true, null),
 //						createPluginAction("Add Haralick texture features (feature test version)", HaralickFeaturesPluginTesting.class, this, imageRegionStore, null),
-						createPluginAction("Add Coherence texture feature (experimental)", CoherenceFeaturePlugin.class, this, true, null),
-						createPluginAction("Add Smoothed features", SmoothFeaturesPlugin.class, this, false, null),
-						createPluginAction("Add Shape features (experimental)", ShapeFeaturesPlugin.class, this, false, null),
+						createPluginAction("添加纹理相关特征 (测试)", CoherenceFeaturePlugin.class, this, true, null),
+						createPluginAction("添加平滑特征", SmoothFeaturesPlugin.class, this, false, null),
+						createPluginAction("添加几何特征 (测试)", ShapeFeaturesPlugin.class, this, false, null),
 						null,
-						createPluginAction("Add Local Binary Pattern features (experimental)", LocalBinaryPatternsPlugin.class, this, true, null)
+						createPluginAction("添加本地二进制模式特征 (测试)", LocalBinaryPatternsPlugin.class, this, true, null)
 						)
 				);
 
 		// Try to load classifiers
 		Menu menuClassifiers = createMenu(
-				"Classify",
-				createCommandAction(new LoadClassifierCommand(this), "Load classifier"),
+				"分类",
+				createCommandAction(new LoadClassifierCommand(this), "载入分类器"),
 				null);
 
 		addMenuItems(
 				menuClassifiers,
 				null,
-				createCommandAction(new ResetClassificationsCommand(this, PathDetectionObject.class), "Reset detection classifications"),
+				createCommandAction(new ResetClassificationsCommand(this, PathDetectionObject.class), "重置检测分类器"),
 				null,
-				createCommandAction(new RandomTrainingRegionSelector(this, getAvailablePathClasses()), "Choose random training samples"),
-				createCommandAction(new SingleFeatureClassifierCommand(this, PathDetectionObject.class), "Classify by specific feature")
+				createCommandAction(new RandomTrainingRegionSelector(this, getAvailablePathClasses()), "随机选择训练样本"),
+				createCommandAction(new SingleFeatureClassifierCommand(this, PathDetectionObject.class), "选定特征构建分类器")
 			);
 		
-		Action actionUpdateCheck = new Action("Check for updates (web)", e -> {
+		Action actionUpdateCheck = new Action("检查更新 (web)", e -> {
 			checkForUpdate(false);
 		});
 		
 		Menu menuHelp = createMenu(
-				"Help",
+				"帮助",
 //				createCommandAction(new HelpCommand(this), "Documentation"),
 				getAction(GUIActions.QUPATH_SETUP),
 				null,
-				createCommandAction(new OpenWebpageCommand(this, URL_DOCS), "Documentation (web)"),
-				createCommandAction(new OpenWebpageCommand(this, URL_VIDEOS), "Demo videos (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_DOCS), "文档 (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_VIDEOS), "样例视频 (web)"),
 //				createCommandAction(new OpenWebpageCommand(this, "http://go.qub.ac.uk/qupath-latest"), "Get latest version (web)"),
 				actionUpdateCheck,
 				null,
-				createCommandAction(new OpenWebpageCommand(this, URL_CITATION), "Cite QuPath (web)"),
-				createCommandAction(new OpenWebpageCommand(this, URL_EXTENSIONS), "Add extensions (web)"),
-				createCommandAction(new OpenWebpageCommand(this, URL_BUGS), "Report bug (web)"),
-				createCommandAction(new OpenWebpageCommand(this, URL_FORUM), "View user forum (web)"),
-				createCommandAction(new OpenWebpageCommand(this, URL_SOURCE), "View source code (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_CITATION), "引用 QuPath (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_EXTENSIONS), "添加插件 (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_BUGS), "上报 bug (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_FORUM), "查看用户论坛 (web)"),
+				createCommandAction(new OpenWebpageCommand(this, URL_SOURCE), "查看源代码 (web)"),
 				null,
-				createCommandAction(new ShowLicensesCommand(this), "License"),
-				createCommandAction(new ShowSystemInfoCommand(this), "System info"),
-				createCommandAction(new ShowInstalledExtensionsCommand(this), "Installed extensions")
+				createCommandAction(new ShowLicensesCommand(this), "授权"),
+				createCommandAction(new ShowSystemInfoCommand(this), "系统信息"),
+				createCommandAction(new ShowInstalledExtensionsCommand(this), "已安装插件")
 				);
 		
 		// Add all to menubar
@@ -3216,197 +3216,197 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		Action action;
 		switch (actionType) {
 		case BRIGHTNESS_CONTRAST:
-			return createCommandAction(new BrightnessContrastCommand(this), "Brightness/Contrast", PathIconFactory.createNode(iconSize, iconSize, PathIconFactory.PathIcons.CONTRAST), new KeyCodeCombination(KeyCode.C, KeyCombination.SHIFT_DOWN));
+			return createCommandAction(new BrightnessContrastCommand(this), "亮度/对比度查看", PathIconFactory.createNode(iconSize, iconSize, PathIconFactory.PathIcons.CONTRAST), new KeyCodeCombination(KeyCode.C, KeyCombination.SHIFT_DOWN));
 		case LINE_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.LINE), "Line tool", Modes.LINE, new KeyCodeCombination(KeyCode.L));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.LINE), "线性工具", Modes.LINE, new KeyCodeCombination(KeyCode.L));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.LINE), tools));
 			return action;
 		case ELLIPSE_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.ELLIPSE), "Ellipse tool", Modes.ELLIPSE, new KeyCodeCombination(KeyCode.O));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.ELLIPSE), "椭圆选择工具", Modes.ELLIPSE, new KeyCodeCombination(KeyCode.O));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.ELLIPSE), tools));
 			return action;
 		case MOVE_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.MOVE), "Move tool", Modes.MOVE, new KeyCodeCombination(KeyCode.M));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.MOVE), "图像移动工具", Modes.MOVE, new KeyCodeCombination(KeyCode.M));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.MOVE), tools));
 			return action;
 		case POINTS_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.POINTS), "Points tool", Modes.POINTS, new KeyCodeCombination(KeyCode.PERIOD));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.POINTS), "点工具", Modes.POINTS, new KeyCodeCombination(KeyCode.PERIOD));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.POINTS), tools));
 			return action;
 		case POLYGON_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.POLYGON), "Polygon tool", Modes.POLYGON, new KeyCodeCombination(KeyCode.P));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.POLYGON), "多边形选择工具", Modes.POLYGON, new KeyCodeCombination(KeyCode.P));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.POLYGON), tools));
 			return action;
 		case BRUSH_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.BRUSH), "Brush tool", Modes.BRUSH, new KeyCodeCombination(KeyCode.B));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.BRUSH), "刷选择工具", Modes.BRUSH, new KeyCodeCombination(KeyCode.B));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.BRUSH), tools));
 			return action;
 		case RECTANGLE_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.RECTANGLE), "Rectangle tool", Modes.RECTANGLE, new KeyCodeCombination(KeyCode.R));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.RECTANGLE), "矩形选择工具", Modes.RECTANGLE, new KeyCodeCombination(KeyCode.R));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.RECTANGLE), tools));
 			return action;
 		case WAND_TOOL:
-			action = createSelectableCommandAction(new ToolSelectable(this, Modes.WAND), "Wand tool", Modes.WAND, new KeyCodeCombination(KeyCode.W));
+			action = createSelectableCommandAction(new ToolSelectable(this, Modes.WAND), "魔棒选择工具", Modes.WAND, new KeyCodeCombination(KeyCode.W));
 			action.disabledProperty().bind(Bindings.createBooleanBinding(() -> !tools.containsKey(Modes.WAND), tools));
 			return action;
 		case SHOW_GRID:
-			return createSelectableCommandAction(overlayOptions.showGridProperty(), "Show grid", PathIconFactory.PathIcons.GRID, new KeyCodeCombination(KeyCode.G, KeyCombination.SHIFT_DOWN));
+			return createSelectableCommandAction(overlayOptions.showGridProperty(), "显示网格", PathIconFactory.PathIcons.GRID, new KeyCodeCombination(KeyCode.G, KeyCombination.SHIFT_DOWN));
 		case SHOW_LOCATION:
-			return createSelectableCommandAction(viewerDisplayOptions.showLocationProperty(), "Show cursor location", PathIconFactory.PathIcons.LOCATION, null);
+			return createSelectableCommandAction(viewerDisplayOptions.showLocationProperty(), "显示光标位置", PathIconFactory.PathIcons.LOCATION, null);
 		case SHOW_OVERVIEW:
-			return createSelectableCommandAction(viewerDisplayOptions.showOverviewProperty(), "Show slide overview", PathIconFactory.PathIcons.OVERVIEW, null);
+			return createSelectableCommandAction(viewerDisplayOptions.showOverviewProperty(), "显示切片图像信息", PathIconFactory.PathIcons.OVERVIEW, null);
 		case SHOW_SCALEBAR:
-			return createSelectableCommandAction(viewerDisplayOptions.showScalebarProperty(), "Show scalebar", PathIconFactory.PathIcons.SHOW_SCALEBAR, null);
+			return createSelectableCommandAction(viewerDisplayOptions.showScalebarProperty(), "显示比例尺", PathIconFactory.PathIcons.SHOW_SCALEBAR, null);
 		case SHOW_ANALYSIS_PANEL:
 			// I don't understand why registering a listener within the ShowAnalysisPanelSelectable constructor didn't work... but it didn't
 			ShowAnalysisPanelSelectable temp = new ShowAnalysisPanelSelectable(pane, splitPane, analysisPanel, viewerManager, true);
-			action = createSelectableCommandAction(temp.showPanelProperty(), "Show analysis panel", PathIconFactory.PathIcons.MEASURE, new KeyCodeCombination(KeyCode.A, KeyCombination.SHIFT_DOWN));
+			action = createSelectableCommandAction(temp.showPanelProperty(), "显示分析面板", PathIconFactory.PathIcons.MEASURE, new KeyCodeCombination(KeyCode.A, KeyCombination.SHIFT_DOWN));
 			action.selectedProperty().addListener((e, f, g) -> temp.setAnalysisPanelVisible(g));
 			return action;
 		case ZOOM_TO_FIT:
-			return createSelectableCommandAction(zoomToFit, "Zoom to fit", PathIconFactory.PathIcons.ZOOM_TO_FIT, null);
+			return createSelectableCommandAction(zoomToFit, "适应窗体", PathIconFactory.PathIcons.ZOOM_TO_FIT, null);
 		case ZOOM_IN:
-			return createCommandAction(new ZoomCommand.ZoomIn(this), "Zoom in", PathIconFactory.createNode(iconSize, iconSize, PathIconFactory.PathIcons.ZOOM_IN), new KeyCodeCombination(KeyCode.PLUS));
+			return createCommandAction(new ZoomCommand.ZoomIn(this), "放大", PathIconFactory.createNode(iconSize, iconSize, PathIconFactory.PathIcons.ZOOM_IN), new KeyCodeCombination(KeyCode.PLUS));
 		case ZOOM_OUT:
-			return createCommandAction(new ZoomCommand.ZoomOut(this), "Zoom out", PathIconFactory.createNode(iconSize, iconSize, PathIconFactory.PathIcons.ZOOM_OUT), new KeyCodeCombination(KeyCode.MINUS));
+			return createCommandAction(new ZoomCommand.ZoomOut(this), "缩小", PathIconFactory.createNode(iconSize, iconSize, PathIconFactory.PathIcons.ZOOM_OUT), new KeyCodeCombination(KeyCode.MINUS));
 		case COPY_VIEW:
-			return createCommandAction(new CopyViewToClipboardCommand(this, false), "Copy view to clipboard", null, new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new CopyViewToClipboardCommand(this, false), "拷贝图像到剪贴板", null, new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
 		case COPY_WINDOW:
-			return createCommandAction(new CopyViewToClipboardCommand(this, true), "Copy window to clipboard");
+			return createCommandAction(new CopyViewToClipboardCommand(this, true), "拷贝当前窗口图像到剪贴板");
 		case OPEN_IMAGE:
-			return createCommandAction(new OpenCommand(this), "Open...", null, new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new OpenCommand(this), "打开...", null, new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN));
 		case OPEN_IMAGE_OR_URL:
-			return createCommandAction(new OpenCommand(this, true), "Open URL...", null, new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
+			return createCommandAction(new OpenCommand(this, true), "打开 URL...", null, new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		case SAVE_DATA_AS:
-			return createCommandAction(new SerializeImageDataCommand(this, false), "Save As", null, new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));			
+			return createCommandAction(new SerializeImageDataCommand(this, false), "存储为", null, new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		case SAVE_DATA:
-			return createCommandAction(new SerializeImageDataCommand(this, true), "Save", null, new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new SerializeImageDataCommand(this, true), "存储", null, new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN));
 		case SHOW_ANNOTATIONS:
-			return createSelectableCommandAction(overlayOptions.showAnnotationsProperty(), "Show annotations", PathIconFactory.PathIcons.ANNOTATIONS, new KeyCodeCombination(KeyCode.A));
+			return createSelectableCommandAction(overlayOptions.showAnnotationsProperty(), "显示标记", PathIconFactory.PathIcons.ANNOTATIONS, new KeyCodeCombination(KeyCode.A));
 		case FILL_ANNOTATIONS:
-			return createSelectableCommandAction(overlayOptions.fillAnnotationsProperty(), "Fill annotations", PathIconFactory.PathIcons.ANNOTATIONS_FILL, new KeyCodeCombination(KeyCode.F, KeyCombination.SHIFT_DOWN));	
+			return createSelectableCommandAction(overlayOptions.fillAnnotationsProperty(), "填充标记", PathIconFactory.PathIcons.ANNOTATIONS_FILL, new KeyCodeCombination(KeyCode.F, KeyCombination.SHIFT_DOWN));
 		case SHOW_TMA_GRID:
-			return createSelectableCommandAction(overlayOptions.showTMAGridProperty(), "Show TMA grid", PathIconFactory.PathIcons.TMA_GRID, new KeyCodeCombination(KeyCode.G));
+			return createSelectableCommandAction(overlayOptions.showTMAGridProperty(), "显示TMA网格", PathIconFactory.PathIcons.TMA_GRID, new KeyCodeCombination(KeyCode.G));
 		case SHOW_TMA_GRID_LABELS:
-			return createSelectableCommandAction(overlayOptions.showTMACoreLabelsProperty(), "Show TMA grid labels");
+			return createSelectableCommandAction(overlayOptions.showTMACoreLabelsProperty(), "显示TMA网格标签");
 		case SHOW_OBJECTS:
-			return createSelectableCommandAction(overlayOptions.showObjectsProperty(), "Show detections", PathIconFactory.PathIcons.DETECTIONS, new KeyCodeCombination(KeyCode.H));
+			return createSelectableCommandAction(overlayOptions.showObjectsProperty(), "显示检测区", PathIconFactory.PathIcons.DETECTIONS, new KeyCodeCombination(KeyCode.H));
 		case FILL_OBJECTS:
-			return createSelectableCommandAction(overlayOptions.fillObjectsProperty(), "Fill detections", PathIconFactory.PathIcons.DETECTIONS_FILL, new KeyCodeCombination(KeyCode.F));	
+			return createSelectableCommandAction(overlayOptions.fillObjectsProperty(), "填充检测区", PathIconFactory.PathIcons.DETECTIONS_FILL, new KeyCodeCombination(KeyCode.F));
 		case SPECIFY_ANNOTATION:
-			return createCommandAction(new SpecifyAnnotationCommand(this), "Specify annotation");
+			return createCommandAction(new SpecifyAnnotationCommand(this), "特殊标记");
 		case ANNOTATION_DUPLICATE:
-			return createCommandAction(new DuplicateAnnotationCommand(this), "Duplicate annotation", null, new KeyCodeCombination(KeyCode.D, KeyCombination.SHIFT_DOWN));
+			return createCommandAction(new DuplicateAnnotationCommand(this), "复制标记", null, new KeyCodeCombination(KeyCode.D, KeyCombination.SHIFT_DOWN));
 		case GRID_SPACING:
-			return createCommandAction(new SetGridSpacingCommand(overlayOptions), "Set grid spacing");
+			return createCommandAction(new SetGridSpacingCommand(overlayOptions), "设置网格间距");
 		case COUNTING_PANEL:
-			return createCommandAction(new CountingPanelCommand(this), "Counting tool", PathIconFactory.createNode(iconSize, iconSize, Modes.POINTS), null);
+			return createCommandAction(new CountingPanelCommand(this), "技术工具", PathIconFactory.createNode(iconSize, iconSize, Modes.POINTS), null);
 		case CONVEX_POINTS:
 			PathPrefs.showPointHullsProperty().addListener(e -> {
 				for (QuPathViewer v : getViewers())
 					v.repaint();
 			});
-			return createSelectableCommandAction(PathPrefs.showPointHullsProperty(), "Show point convex hull");
+			return createSelectableCommandAction(PathPrefs.showPointHullsProperty(), "显示点凸包");
 		case USE_SELECTED_COLOR:
 			PathPrefs.useSelectedColorProperty().addListener(e -> {
 				for (QuPathViewer v : getViewers())
 					v.repaint();
 			});
-			return createSelectableCommandAction(PathPrefs.useSelectedColorProperty(), "Use selected color for points");
+			return createSelectableCommandAction(PathPrefs.useSelectedColorProperty(), "图像点设置所选颜色");
 		case DETECTIONS_TO_POINTS:
-			return createCommandAction(new DetectionsToPointsCommand(this), "Convert detections to points");
+			return createCommandAction(new DetectionsToPointsCommand(this), "将检测结果转换为点");
 		case ROTATE_IMAGE:
-			return createCommandAction(new RotateImageCommand(this), "Rotate image");
+			return createCommandAction(new RotateImageCommand(this), "旋转图像");
 		case MINI_VIEWER:
-			return createCommandAction(new MiniViewerCommand(this), "Show mini viewer");
+			return createCommandAction(new MiniViewerCommand(this), "显示迷你查看器");
 		case TMA_SCORE_IMPORTER:
-			return createCommandAction(new TMAScoreImportCommand(this), "Import TMA map");
+			return createCommandAction(new TMAScoreImportCommand(this), "导入TMA");
 		case TMA_RELABEL:
-			return createCommandAction(new TMAGridRelabel(this), "Relabel TMA grid");
+			return createCommandAction(new TMAGridRelabel(this), "重新标记TMA网格");
 //		case OVERLAY_OPACITY:
 //			return new OpacityAction(this, overlayOptions);
 		case COLOR_DECONVOLUTION_REFINE:
-			return createCommandAction(new EstimateStainVectorsCommand(this), "Estimate stain vectors");
+			return createCommandAction(new EstimateStainVectorsCommand(this), "染色特征向量分析");
 //			return createCommandAction(new ColorDeconvolutionRefineAction(this), "Refine color deconvolution stains");
 		
 		case SHOW_COMMAND_LIST:
-			return createCommandAction(new CommandListDisplayCommand(this), "Show command list", null, new KeyCodeCombination(KeyCode.L, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new CommandListDisplayCommand(this), "显示命令列表", null, new KeyCodeCombination(KeyCode.L, KeyCombination.SHORTCUT_DOWN));
 
 		case SHOW_CELL_BOUNDARIES:
-			return createSelectableCommandAction(new CellDisplaySelectable(overlayOptions, CellDisplayMode.BOUNDARIES_ONLY), "Cell boundaries only", PathIconFactory.createNode(iconSize, iconSize, PathIcons.CELL_ONLY), null);
+			return createSelectableCommandAction(new CellDisplaySelectable(overlayOptions, CellDisplayMode.BOUNDARIES_ONLY), "仅显示细胞轮廓", PathIconFactory.createNode(iconSize, iconSize, PathIcons.CELL_ONLY), null);
 		case SHOW_CELL_NUCLEI:
-			return createSelectableCommandAction(new CellDisplaySelectable(overlayOptions, CellDisplayMode.NUCLEI_ONLY), "Nuclei only", PathIconFactory.createNode(iconSize, iconSize, PathIcons.CELL_NULCEI_BOTH), null);
+			return createSelectableCommandAction(new CellDisplaySelectable(overlayOptions, CellDisplayMode.NUCLEI_ONLY), "仅显示细胞核轮廓", PathIconFactory.createNode(iconSize, iconSize, PathIcons.CELL_NULCEI_BOTH), null);
 		case SHOW_CELL_BOUNDARIES_AND_NUCLEI:
-			return createSelectableCommandAction(new CellDisplaySelectable(overlayOptions, CellDisplayMode.NUCLEI_AND_BOUNDARIES), "Nuclei & cell boundaries", PathIconFactory.createNode(iconSize, iconSize, PathIcons.NUCLEI_ONLY), null);
+			return createSelectableCommandAction(new CellDisplaySelectable(overlayOptions, CellDisplayMode.NUCLEI_AND_BOUNDARIES), "同时显示细胞及细胞核轮廓", PathIconFactory.createNode(iconSize, iconSize, PathIcons.NUCLEI_ONLY), null);
 		
 		case RIGID_OBJECT_EDITOR:
-			return createCommandAction(new RigidObjectEditorCommand(this), "Rotate annotation", null, new KeyCodeCombination(KeyCode.R, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new RigidObjectEditorCommand(this), "旋转标记", null, new KeyCodeCombination(KeyCode.R, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN, KeyCombination.SHORTCUT_DOWN));
 			
 		case SUMMARY_TMA:
-			return createCommandAction(new SummaryMeasurementTableCommand(this, TMACoreObject.class), "Show TMA measurements");
+			return createCommandAction(new SummaryMeasurementTableCommand(this, TMACoreObject.class), "显示TMA测量");
 //			return createCommandAction(new SummaryTableCommand(this, TMACoreObject.class), "Show TMA core measurements");
 		case SUMMARY_DETECTIONS:
-			return createCommandAction(new SummaryMeasurementTableCommand(this, PathDetectionObject.class), "Show detection measurements");
+			return createCommandAction(new SummaryMeasurementTableCommand(this, PathDetectionObject.class), "显示检测测量");
 //			return createCommandAction(new SummaryTableCommand(this, PathDetectionObject.class), "Show detection measurements");
 		case SUMMARY_ANNOTATIONS:
-			return createCommandAction(new SummaryMeasurementTableCommand(this, PathAnnotationObject.class), "Show annotation measurements");
+			return createCommandAction(new SummaryMeasurementTableCommand(this, PathAnnotationObject.class), "显示标注测量");
 		
 		case VIEW_TRACKER:
-			return createCommandAction(new ViewTrackerCommand(this), "Show tracking panel", null, new KeyCodeCombination(KeyCode.T, KeyCombination.SHIFT_DOWN)); // TODO: Note: this only works with the original viewer
+			return createCommandAction(new ViewTrackerCommand(this), "显示跟踪面板", null, new KeyCodeCombination(KeyCode.T, KeyCombination.SHIFT_DOWN)); // TODO: Note: this only works with the original viewer
 		case MEASUREMENT_MAP:
-			return createCommandAction(new MeasurementMapCommand(this), "Show measurement maps", null, new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
+			return createCommandAction(new MeasurementMapCommand(this), "显示测量图", null, new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		case WORKFLOW_DISPLAY:
-			return createCommandAction(new WorkflowDisplayCommand(this), "Show workflow command history", null, new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
+			return createCommandAction(new WorkflowDisplayCommand(this), "显示操作工作流历史", null, new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		case TMA_EXPORT_DATA:
-			return createCommandAction(new TMAExporterCommand(this), "Export TMA data");
+			return createCommandAction(new TMAExporterCommand(this), "导出TMA数据");
 			
 		case SHOW_LOG:
-			return createCommandAction(new LogViewerCommand(this), "Show log", null, new KeyCodeCombination(KeyCode.L, KeyCombination.SHIFT_DOWN, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new LogViewerCommand(this), "显示日志", null, new KeyCodeCombination(KeyCode.L, KeyCombination.SHIFT_DOWN, KeyCombination.SHORTCUT_DOWN));
 			
 		
 		case DELETE_SELECTED_OBJECTS:
-			return createCommandAction(new DeleteSelectedObjectsCommand(this), "Delete selected objects");
+			return createCommandAction(new DeleteSelectedObjectsCommand(this), "删除选择对象");
 		case CLEAR_HIERARCHY:
-			return createCommandAction(new DeleteObjectsCommand(this, null), "Delete all objects");
+			return createCommandAction(new DeleteObjectsCommand(this, null), "删除全部对象");
 		case CLEAR_DETECTIONS:
-			return createCommandAction(new DeleteObjectsCommand(this, PathDetectionObject.class), "Delete all detections");
+			return createCommandAction(new DeleteObjectsCommand(this, PathDetectionObject.class), "删除全部检测");
 		case CLEAR_TMA_CORES:
-			return createCommandAction(new DeleteObjectsCommand(this, TMACoreObject.class), "Delete TMA grid");
+			return createCommandAction(new DeleteObjectsCommand(this, TMACoreObject.class), "删除TMA网格");
 		case CLEAR_ANNOTATIONS:
-			return createCommandAction(new DeleteObjectsCommand(this, PathAnnotationObject.class), "Delete all annotations");
+			return createCommandAction(new DeleteObjectsCommand(this, PathAnnotationObject.class), "删除全部标记");
 			
 			
 		case PROJECT_NEW:
-			return createCommandAction(new ProjectCreateCommand(this), "Create project");
+			return createCommandAction(new ProjectCreateCommand(this), "创建工程");
 		case PROJECT_OPEN:
-			return createCommandAction(new ProjectOpenCommand(this), "Open project");
+			return createCommandAction(new ProjectOpenCommand(this), "打开工程");
 		case PROJECT_CLOSE:
-			return createCommandAction(new ProjectCloseCommand(this), "Close project");
+			return createCommandAction(new ProjectCloseCommand(this), "关闭工程");
 		case PROJECT_SAVE:
-			return createCommandAction(new ProjectSaveCommand(this), "Save project");
+			return createCommandAction(new ProjectSaveCommand(this), "保存工程");
 		case PROJECT_IMPORT_IMAGES:
-			return createCommandAction(new ProjectImportImagesCommand(this), "Add images");
+			return createCommandAction(new ProjectImportImagesCommand(this), "添加图像");
 		case PROJECT_EXPORT_IMAGE_LIST:
-			return createCommandAction(new ProjectExportImageListCommand(this), "Export image list");			
+			return createCommandAction(new ProjectExportImageListCommand(this), "导出图像列表");
 		case PROJECT_METADATA:
-			return createCommandAction(new ProjectMetadataEditorCommand(this), "Edit project metadata");
+			return createCommandAction(new ProjectMetadataEditorCommand(this), "编辑工程结构");
 			
 		case PREFERENCES:
-			return createCommandAction(new PreferencesCommand(this, prefsPanel), "Preferences...", PathIconFactory.createNode(iconSize, iconSize, PathIcons.COG), new KeyCodeCombination(KeyCode.COMMA, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new PreferencesCommand(this, prefsPanel), "设置...", PathIconFactory.createNode(iconSize, iconSize, PathIcons.COG), new KeyCodeCombination(KeyCode.COMMA, KeyCombination.SHORTCUT_DOWN));
 		
 		case QUPATH_SETUP:
-			return createCommandAction(new QuPathSetupCommand(this), "Show setup options");
+			return createCommandAction(new QuPathSetupCommand(this), "显示安装选项");
 			
 		case TMA_ADD_NOTE:
-			return createCommandAction(new TMAAddNote(this), "Add TMA note");
+			return createCommandAction(new TMAAddNote(this), "添加 TMA 注释");
 			
 		case TRANSFER_ANNOTATION:
-			return createCommandAction(new TransferAnnotationCommand(this), "Transfer last annotation", null, new KeyCodeCombination(KeyCode.E, KeyCombination.SHIFT_DOWN));
+			return createCommandAction(new TransferAnnotationCommand(this), "移动到上一次标记", null, new KeyCodeCombination(KeyCode.E, KeyCombination.SHIFT_DOWN));
 		case SELECT_ALL_ANNOTATION:
-			return createCommandAction(new SelectAllAnnotationCommand(this), "Create full image annotation", null, new KeyCodeCombination(KeyCode.A, KeyCombination.SHIFT_DOWN, KeyCombination.SHORTCUT_DOWN));
+			return createCommandAction(new SelectAllAnnotationCommand(this), "创建全图标记", null, new KeyCodeCombination(KeyCode.A, KeyCombination.SHIFT_DOWN, KeyCombination.SHORTCUT_DOWN));
 		
 		case TOGGLE_SYNCHRONIZE_VIEWERS:
-			return createSelectableCommandAction(viewerManager.synchronizeViewersProperty(), "Synchronize viewers", (Node)null, new KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN, KeyCombination.SHORTCUT_DOWN));
+			return createSelectableCommandAction(viewerManager.synchronizeViewersProperty(), "同步视图", (Node)null, new KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN, KeyCombination.SHORTCUT_DOWN));
 			
 		default:
 			return null;
@@ -3711,9 +3711,9 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		tabbedPanel.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		projectBrowser = new ProjectBrowser(this);
 
-		tabbedPanel.getTabs().add(new Tab("Project", projectBrowser.getPane()));
+		tabbedPanel.getTabs().add(new Tab("工程", projectBrowser.getPane()));
 		PathImageDetailsPanel pathImageDetailsPanel = new PathImageDetailsPanel(this);
-		tabbedPanel.getTabs().add(new Tab("Image", pathImageDetailsPanel.getContainer()));
+		tabbedPanel.getTabs().add(new Tab("图像", pathImageDetailsPanel.getContainer()));
 
 		final PathAnnotationPanel panelAnnotations = new PathAnnotationPanel(this);
 		SplitPane splitAnnotations = new SplitPane();
@@ -3721,7 +3721,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		splitAnnotations.getItems().addAll(
 				panelAnnotations.getPane(),
 				new SelectedMeasurementTableView(this).getTable());
-		tabbedPanel.getTabs().add(new Tab("Annotations", splitAnnotations));
+		tabbedPanel.getTabs().add(new Tab("标记", splitAnnotations));
 
 		final PathObjectHierarchyView paneHierarchy = new PathObjectHierarchyView(this);
 		SplitPane splitHierarchy = new SplitPane();
@@ -3729,7 +3729,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 		splitHierarchy.getItems().addAll(
 				paneHierarchy.getPane(),
 				new SelectedMeasurementTableView(this).getTable());
-		tabbedPanel.getTabs().add(new Tab("Hierarchy", splitHierarchy));
+		tabbedPanel.getTabs().add(new Tab("层级", splitHierarchy));
 		
 		// Bind the split pane dividers to create a more consistent appearance
 		splitAnnotations.getDividers().get(0).positionProperty().bindBidirectional(
@@ -3737,7 +3737,7 @@ public class QuPathGUI implements ModeWrapper, ImageDataWrapper<BufferedImage>, 
 				);
 
 		WorkflowPanel workflowPanel = new WorkflowPanel(this);
-		tabbedPanel.getTabs().add(new Tab("Workflow", workflowPanel.getPane()));
+		tabbedPanel.getTabs().add(new Tab("工作流", workflowPanel.getPane()));
 		
 //		PathObjectHierarchyPanel pathObjectHierarchyPanel = new PathObjectHierarchyPanel(this);
 //		tabbedPanel.getTabs().add(new Tab("Hierarchy", pathObjectHierarchyPanel.getPane()));

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.sourceforge.jpen:jpen:natives-osx:2-150301">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jpen/jpen/2-150301/jpen-2-150301-natives-osx.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jpen/jpen/2-150301/jpen-2-150301-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jpen/jpen/2-150301/jpen-2-150301-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ public class PathClassifierPanel {
 	private String pathClassifier = null;
 	private PathObjectClassifier classifier = null;
 
-	private Button btnLoad = new Button("Load classifier");
+	private Button btnLoad = new Button("载入分类器");
 	private Button btnRun = new Button("Run classifier");
 	private TextArea textClassifier = new TextArea();
 
@@ -73,7 +73,7 @@ public class PathClassifierPanel {
 		this.manager = manager;
 
 		btnLoad.setOnAction(e -> {
-			File file = QuPathGUI.getDialogHelper(btnLoad.getScene().getWindow()).promptForFile("Load classifier", QuPathGUI.getInstance() == null ? null : QuPathGUI.getInstance().getProjectClassifierDirectory(true), "Classifiers", new String[]{PathPrefs.getClassifierExtension()});
+			File file = QuPathGUI.getDialogHelper(btnLoad.getScene().getWindow()).promptForFile("载入分类器", QuPathGUI.getInstance() == null ? null : QuPathGUI.getInstance().getProjectClassifierDirectory(true), "Classifiers", new String[]{PathPrefs.getClassifierExtension()});
 			if (file == null)
 				return;
 

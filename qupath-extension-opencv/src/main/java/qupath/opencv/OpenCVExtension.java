@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -72,37 +72,37 @@ public class OpenCVExtension implements QuPathExtension {
 		if (!loadNativeLibrary())
 			return;
 
-		Menu menuTMA = qupath.getMenu("TMA", true);
+		Menu menuTMA = qupath.getMenu("组织芯片", true);
 		QuPathGUI.addMenuItems(
 				menuTMA,
-				QuPathGUI.createCommandAction(new AlignCoreAnnotationsCV(qupath), "Align annotations within TMA core (TMA, experimental)")
+				QuPathGUI.createCommandAction(new AlignCoreAnnotationsCV(qupath), "对齐TMA内核标记 (TMA, 测试)")
 				);
 		
-		Menu menuFeatures = qupath.getMenu("Analyze>Calculate features", true);
+		Menu menuFeatures = qupath.getMenu("分析>特征计算", true);
 		QuPathGUI.addMenuItems(
 				menuFeatures,
-				qupath.createPluginAction("Add Delaunay cluster features (experimental)", DelaunayClusteringPlugin.class, null, false)
+				qupath.createPluginAction("添加Delaunay簇特征 (测试)", DelaunayClusteringPlugin.class, null, false)
 				);
 
-		Menu menuRegions = qupath.getMenu("Analyze>Region identification", true);
+		Menu menuRegions = qupath.getMenu("分析>区域标记", true);
 		QuPathGUI.addMenuItems(
 				menuRegions,
 //				QuPathGUI.createCommandAction(new TissueSegmentationCommand(qupath), "Tissue identification (OpenCV, experimental)"),
-				qupath.createPluginAction("Create cytokeratin annotations (TMA, experimental)", DetectCytokeratinCV.class, null, false)
+				qupath.createPluginAction("创建细胞角蛋白标记 (TMA, 测试)", DetectCytokeratinCV.class, null, false)
 				);
 
-		Menu menuCellAnalysis = qupath.getMenu("Analyze>Cell analysis", true);
+		Menu menuCellAnalysis = qupath.getMenu("分析>细胞分析", true);
 		QuPathGUI.addMenuItems(
 				menuCellAnalysis,
 				new SeparatorMenuItem(),
-				qupath.createPluginAction("Watershed nucleus detection (OpenCV, experimental)", WatershedNucleiCV.class, null, false),
-				qupath.createPluginAction("Fast cell counts (brightfield)", CellCountsCV.class, null, false)
+				qupath.createPluginAction("临界胞核检测 (OpenCV, 测试)", WatershedNucleiCV.class, null, false),
+				qupath.createPluginAction("快速细胞计数 (基于亮度阈)", CellCountsCV.class, null, false)
 				);
 
-		Menu menuClassify = qupath.getMenu("Classify", true);
+		Menu menuClassify = qupath.getMenu("分类", true);
 		QuPathGUI.addMenuItems(
 				menuClassify,
-				QuPathGUI.createCommandAction(new OpenCvClassifierCommand(qupath), "Create detection classifier", null, new KeyCodeCombination(KeyCode.D, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN)));
+				QuPathGUI.createCommandAction(new OpenCvClassifierCommand(qupath), "创建检测分类器", null, new KeyCodeCombination(KeyCode.D, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN)));
 		
 		
 		// Add the Wand tool

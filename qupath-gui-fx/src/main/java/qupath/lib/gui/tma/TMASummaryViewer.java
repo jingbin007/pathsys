@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -278,7 +278,7 @@ public class TMASummaryViewer {
 		}, predicateMeasurements, predicateHideMissing, predicateMetadataFilter);
 		
 		initialize();
-		this.stage.setTitle("TMA Results Viewer");
+		this.stage.setTitle("TMA图像查看");
 		this.stage.setScene(scene);
 		new DragDropTMADataImportListener(this);
 	}
@@ -291,8 +291,8 @@ public class TMASummaryViewer {
 		groupByIDProperty.addListener((v, o, n) -> refreshTableData());
 
 		MenuBar menuBar = new MenuBar();
-		Menu menuFile = new Menu("File");
-		MenuItem miOpen = new MenuItem("Open...");
+		Menu menuFile = new Menu("文件");
+		MenuItem miOpen = new MenuItem("打开...");
 		miOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN));
 		miOpen.setOnAction(e -> {
 			File file = QuPathGUI.getDialogHelper(stage).promptForFile(null, null, "TMA data files", new String[]{"qptma"});
@@ -301,37 +301,37 @@ public class TMASummaryViewer {
 			setInputFile(file);
 		});
 		
-		MenuItem miSave = new MenuItem("Save As...");
+		MenuItem miSave = new MenuItem("存储为...");
 		miSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		miSave.setOnAction(e -> SummaryMeasurementTableCommand.saveTableModel(model, null, Collections.emptyList()));
 		
 		
-		MenuItem miImportFromImage = new MenuItem("Import from current image...");
+		MenuItem miImportFromImage = new MenuItem("从当前图像导入...");
 		miImportFromImage.setAccelerator(new KeyCodeCombination(KeyCode.I, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		miImportFromImage.setOnAction(e -> setTMAEntriesFromOpenImage());
 		
 		
-		MenuItem miImportFromProject = new MenuItem("Import from current project... (experimental)");
+		MenuItem miImportFromProject = new MenuItem("从当前工程导入... (测试)");
 		miImportFromProject.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		miImportFromProject.setOnAction(e -> setTMAEntriesFromOpenProject());
 		
 		
-		MenuItem miImportClipboard = new MenuItem("Import from clipboard...");
+		MenuItem miImportClipboard = new MenuItem("从剪贴板导入...");
 		miImportClipboard.setOnAction(e -> {
 			String text = Clipboard.getSystemClipboard().getString();
 			if (text == null) {
-				DisplayHelpers.showErrorMessage("Import scores", "Clipboard is empty!");
+				DisplayHelpers.showErrorMessage("导入scores", "剪贴板为空!");
 				return;
 			}
 			int n = importScores(text);
 			if (n > 0) {
 				setTMAEntries(new ArrayList<>(entriesBase));
 			}
-			DisplayHelpers.showMessageDialog("Import scores", "Number of scores imported: " + n);
+			DisplayHelpers.showMessageDialog("导入scores", "导入的scores数量为: " + n);
 		});
 		
-		Menu menuEdit = new Menu("Edit");
-		MenuItem miCopy = new MenuItem("Copy table to clipboard");
+		Menu menuEdit = new Menu("编辑");
+		MenuItem miCopy = new MenuItem("拷贝表格到剪贴表");
 		miCopy.setOnAction(e -> {
 			SummaryMeasurementTableCommand.copyTableContentsToClipboard(model, Collections.emptyList());
 		});

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/qupath-core-awt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-core-processing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-core-processing-awt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-extension-ij" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-extension-input" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-extension-opencv" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-extension-openslide" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-extension-pen" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-extension-script-editor" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-gui-fx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-processing-ij" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qupath-processing-opencv" charset="UTF-8" />
+  </component>
+</project>

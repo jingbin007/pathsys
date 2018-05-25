@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -388,11 +388,11 @@ public class IJExtension implements QuPathExtension {
 			ImageView imageView = new ImageView(getImageJIcon(QuPathGUI.iconSize, QuPathGUI.iconSize));
 			Button btnImageJ = new Button();
 			btnImageJ.setGraphic(imageView);
-			btnImageJ.setTooltip(new Tooltip("ImageJ commands"));
+			btnImageJ.setTooltip(new Tooltip("ImageJ 命令"));
 			ContextMenu popup = new ContextMenu();
 			popup.getItems().addAll(
-					QuPathGUI.createMenuItem(QuPathGUI.createCommandAction(commandExtractRegionCustom, "Send region to ImageJ", PathIconFactory.createNode(QuPathGUI.iconSize, QuPathGUI.iconSize, PathIconFactory.PathIcons.EXTRACT_REGION), null)),
-					QuPathGUI.createMenuItem(QuPathGUI.createCommandAction(screenshotCommand, "Send snapshot to ImageJ", PathIconFactory.createNode(QuPathGUI.iconSize, QuPathGUI.iconSize, PathIconFactory.PathIcons.SCREENSHOT), null))
+					QuPathGUI.createMenuItem(QuPathGUI.createCommandAction(commandExtractRegionCustom, "发送图块到 ImageJ", PathIconFactory.createNode(QuPathGUI.iconSize, QuPathGUI.iconSize, PathIconFactory.PathIcons.EXTRACT_REGION), null)),
+					QuPathGUI.createMenuItem(QuPathGUI.createCommandAction(screenshotCommand, "发送快照到 ImageJ", PathIconFactory.createNode(QuPathGUI.iconSize, QuPathGUI.iconSize, PathIconFactory.PathIcons.SCREENSHOT), null))
 					);
 			btnImageJ.setOnMouseClicked(e -> {
 				popup.show(btnImageJ, e.getScreenX(), e.getScreenY());
@@ -423,19 +423,19 @@ public class IJExtension implements QuPathExtension {
 		
 //		Menu menuFeatures = qupath.getMenu("Analyze>Calculate features", true);
 		
-		Menu menuRegions = qupath.getMenu("Analyze>Region identification>Tiles & superpixels", true);
+		Menu menuRegions = qupath.getMenu("分析>区域标记>图块 & 超像素", true);
 		QuPathGUI.addMenuItems(menuRegions,
 				null,
-				qupath.createPluginAction("DoG superpixel segmentation", DoGSuperpixelsPlugin.class, null, false),
-				qupath.createPluginAction("SLIC superpixel segmentation (experimental)", SLICSuperpixelsPlugin.class, null, false),
+				qupath.createPluginAction("DoG超像素分割", DoGSuperpixelsPlugin.class, null, false),
+				qupath.createPluginAction("SLIC超像素分割 (测试)", SLICSuperpixelsPlugin.class, null, false),
 //				qupath.createPluginAction("Gaussian superpixel segmentation", GaussianSuperpixelsPlugin.class, null, false),
 				null,
-				qupath.createPluginAction("Tile classifications to annotations", TileClassificationsToAnnotationsPlugin.class, null, false)				
+				qupath.createPluginAction("标记分类", TileClassificationsToAnnotationsPlugin.class, null, false)
 				);
 		
-		menuRegions = qupath.getMenu("Analyze>Region identification", true);
+		menuRegions = qupath.getMenu("分析>区域标记", true);
 		QuPathGUI.addMenuItems(menuRegions,
-				qupath.createPluginAction("Positive pixel count (experimental)", PositivePixelCounterIJ.class, null, false)
+				qupath.createPluginAction("正例像素点计数 (测试)", PositivePixelCounterIJ.class, null, false)
 				);
 
 		
@@ -447,9 +447,9 @@ public class IJExtension implements QuPathExtension {
 //		menuExperimental.getItems().add(new PathPluginAction("Tile classifications to annotations", TileClassificationsToAnnotationsPlugin.class, qupath));
 
 		// Put dearraying at the top of the TMA menu
-		Menu menuTMA = qupath.getMenu("TMA", true);
+		Menu menuTMA = qupath.getMenu("组织芯片", true);
 		menuTMA.getItems().add(0,
-				QuPathGUI.createMenuItem(qupath.createPluginAction("TMA dearrayer", TMADearrayerPluginIJ.class, null, false))
+				QuPathGUI.createMenuItem(qupath.createPluginAction("TMA逆阵列化", TMADearrayerPluginIJ.class, null, false))
 				);
 		menuTMA.getItems().add(1,
 				new SeparatorMenuItem()
@@ -462,7 +462,7 @@ public class IJExtension implements QuPathExtension {
 		
 		
 		// Make it possible to set the ImageJ plugins path, to give easy access to user plugins
-		MenuItem miSetPluginsPath = new MenuItem("Set ImageJ plugins directory");
+		MenuItem miSetPluginsPath = new MenuItem("设置ImageJ 插件地址");
 		miSetPluginsPath.setOnAction(e -> {
 			String path = getImageJPath();
 			File dir = qupath.getDialogHelper().promptForDirectory(new File(path));
@@ -471,8 +471,8 @@ public class IJExtension implements QuPathExtension {
 		});
 					
 		
-		Menu menuAutomate = qupath.getMenu("Extensions>ImageJ", true);
-		Action actionMacroRunner = qupath.createPluginAction("ImageJ macro runner", new ImageJMacroRunner(qupath), null);
+		Menu menuAutomate = qupath.getMenu("扩展>ImageJ", true);
+		Action actionMacroRunner = qupath.createPluginAction("ImageJ 宏运行", new ImageJMacroRunner(qupath), null);
 		QuPathGUI.addMenuItems(menuAutomate,
 				QuPathGUI.createMenuItem(QuPathGUI.createCommandAction(commandExtractRegionCustom, "Send region to ImageJ", PathIconFactory.createNode(QuPathGUI.iconSize, QuPathGUI.iconSize, PathIconFactory.PathIcons.EXTRACT_REGION), null)),
 				QuPathGUI.createMenuItem(QuPathGUI.createCommandAction(screenshotCommand, "Send snapshot to ImageJ", PathIconFactory.createNode(QuPathGUI.iconSize, QuPathGUI.iconSize, PathIconFactory.PathIcons.SCREENSHOT), null)),
@@ -498,32 +498,32 @@ public class IJExtension implements QuPathExtension {
 			return false;
 		});
 		
-		Menu menuPreprocessing = qupath.getMenu("Analyze>Preprocessing", true);
+		Menu menuPreprocessing = qupath.getMenu("分析>预处理", true);
 		QuPathGUI.addMenuItems(
 				menuPreprocessing,
 				null,
-				qupath.createPluginAction("Simple tissue detection", SimpleTissueDetection2.class, null, true),
-				qupath.createPluginAction("Simple tissue detection (legacy)", SimpleTissueDetection.class, null, false)
+				qupath.createPluginAction("采样组织检测", SimpleTissueDetection2.class, null, true),
+				qupath.createPluginAction("采样组织检测 (legacy)", SimpleTissueDetection.class, null, false)
 				);
 		
 		
-		Menu menuCellAnalysis = qupath.getMenu("Analyze>Cell analysis", true);
+		Menu menuCellAnalysis = qupath.getMenu("分析>细胞分析", true);
 		QuPathGUI.addMenuItems(
 				menuCellAnalysis,
 //				qupath.createPluginAction("Mean brown chromogen (legacy)", MeanBrownChromogenPlugin.class, null, false),
 //				new SeparatorMenuItem(),
-				qupath.createPluginAction("Cell detection", WatershedCellDetection.class, null, false),
-				qupath.createPluginAction("Positive cell detection", PositiveCellDetection.class, null, false),
-				qupath.createPluginAction("Cell + membrane detection", WatershedCellMembraneDetection.class, null, false),
+				qupath.createPluginAction("细胞检测", WatershedCellDetection.class, null, false),
+				qupath.createPluginAction("细胞正例检测", PositiveCellDetection.class, null, false),
+				qupath.createPluginAction("细胞 + 胞膜检测", WatershedCellMembraneDetection.class, null, false),
 //				qupath.createPluginAction("Cell + membrane detection + percentage (experimental)", WatershedCellMembraneDetectionWithBoundaries.class, null, false),
-				qupath.createPluginAction("Positive nucleus detection (legacy)", WatershedNucleusDetection.class, null, false),
+				qupath.createPluginAction("胞核正例检测 (legacy)", WatershedNucleusDetection.class, null, false),
 //				new SeparatorMenuItem(),
 //				qupath.createPluginAction("Lesion detection (experimental)", LesionDetector.class, null, false),
 				
 				new SeparatorMenuItem(),
-				qupath.createPluginAction("Immune scorer (TMA, experimental)", ImmuneScorerTMA.class, null, false),
+				qupath.createPluginAction("免疫评分 (TMA, 测试)", ImmuneScorerTMA.class, null, false),
 				new SeparatorMenuItem(),
-				qupath.createPluginAction("Subcellular detection (experimental)", SubcellularDetection.class, null, true)
+				qupath.createPluginAction("亚细胞结构检测 (测试)", SubcellularDetection.class, null, true)
 				);
 
 

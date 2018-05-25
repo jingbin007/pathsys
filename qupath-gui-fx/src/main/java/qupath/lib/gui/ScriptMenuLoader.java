@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -48,9 +48,9 @@ public class ScriptMenuLoader {
 	
 	private ObservableStringValue scriptDirectory;
 	private Menu menu;
-	private MenuItem miSetPath = new MenuItem("Set script directory...");
-	private MenuItem miCreateScript = new MenuItem("New script...");
-	private MenuItem miOpenDirectory = new MenuItem("Open script directory");
+	private MenuItem miSetPath = new MenuItem("设置脚本本地路径...");
+	private MenuItem miCreateScript = new MenuItem("新建脚本...");
+	private MenuItem miOpenDirectory = new MenuItem("打开脚本目录");
 	
 	private DefaultScriptEditor scriptEditor;
 	
@@ -65,7 +65,7 @@ public class ScriptMenuLoader {
 			if (dir == null) {
 				DisplayHelpers.showErrorMessage("New script error", "No script directory set!");
 			}
-			String scriptName = DisplayHelpers.showInputDialog("New script", "Enter script name", "");
+			String scriptName = DisplayHelpers.showInputDialog("新建脚本", "输入脚本名称", "");
 			if (scriptName == null || scriptName.trim().isEmpty())
 				return;
 			if (!scriptName.contains("."))

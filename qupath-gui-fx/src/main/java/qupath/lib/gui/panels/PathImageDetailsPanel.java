@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -105,9 +105,9 @@ public class PathImageDetailsPanel implements ImageDataChangeListener<BufferedIm
 	private ListView<String> listImages = new ListView<>();
 	private ListView<String> listAssociatedImages = new ListView<>();
 
-	private TitledPane panelTable = new TitledPane("Properties", new StackPane(table));
-	private TitledPane panelImages = new TitledPane("Image list", new StackPane(listImages));
-	private TitledPane panelAssociatedImages = new TitledPane("Associated images", new StackPane(listAssociatedImages));
+	private TitledPane panelTable = new TitledPane("属性", new StackPane(table));
+	private TitledPane panelImages = new TitledPane("图像列表", new StackPane(listImages));
+	private TitledPane panelAssociatedImages = new TitledPane("关联图像", new StackPane(listAssociatedImages));
 	
 	private ImageData<BufferedImage> imageData;
 
@@ -202,7 +202,7 @@ public class PathImageDetailsPanel implements ImageDataChangeListener<BufferedIm
 
 				// Create menubar
 				MenuBar menubar = new MenuBar();
-				Menu menuFile = new Menu("File");
+				Menu menuFile = new Menu("文件");
 				MenuItem miClose = new MenuItem("Close");
 				miClose.setAccelerator(new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN));
 				miClose.setOnAction(e -> dialog.close());
@@ -221,7 +221,7 @@ public class PathImageDetailsPanel implements ImageDataChangeListener<BufferedIm
 				});
 				menuFile.getItems().addAll(miSave, miClose);
 				
-				Menu menuEdit = new Menu("Edit");
+				Menu menuEdit = new Menu("编辑");
 				MenuItem miCopy = new MenuItem("Copy");
 				miCopy.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
 				miCopy.setOnAction(e -> {

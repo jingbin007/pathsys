@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openslide:openslide:natives-windows:3.4.1_2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openslide/openslide/3.4.1_2/openslide-3.4.1_2-natives-windows.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openslide/openslide/3.4.1_2/openslide-3.4.1_2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openslide/openslide/3.4.1_2/openslide-3.4.1_2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

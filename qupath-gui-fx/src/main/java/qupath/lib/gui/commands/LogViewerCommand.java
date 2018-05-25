@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -128,7 +128,7 @@ public class LogViewerCommand implements PathCommand {
 		
 		// Add actual menubar
 		MenuBar menubar = new MenuBar();
-		Menu menuFile = new Menu("File");
+		Menu menuFile = new Menu("文件");
 		MenuItem miSave = new MenuItem("Save log");
 		miSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCodeCombination.SHORTCUT_DOWN));
 		miSave.setOnAction(e -> {
@@ -149,7 +149,7 @@ public class LogViewerCommand implements PathCommand {
 		miCloseWindow.setOnAction(e -> dialog.hide());
 		menuFile.getItems().addAll(miSave, miCloseWindow);
 		
-		Menu menuEdit = new Menu("Edit");
+		Menu menuEdit = new Menu("编辑");
 		menuEdit.getItems().addAll(
 				ActionUtils.createMenuItem(actionCopy),
 				ActionUtils.createMenuItem(actionClear)

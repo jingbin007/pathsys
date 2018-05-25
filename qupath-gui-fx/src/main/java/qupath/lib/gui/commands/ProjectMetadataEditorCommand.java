@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -153,7 +153,7 @@ public class ProjectMetadataEditorCommand implements PathCommand {
 				);
 		
 		MenuBar menubar = new MenuBar();
-		Menu menuEdit = new Menu("Edit");
+		Menu menuEdit = new Menu("编辑");
 		MenuItem miCopy = new MenuItem("Copy selected cells");
 		miCopy.disableProperty().bind(selectedCells);
 		miCopy.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));

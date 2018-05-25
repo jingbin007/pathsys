@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -926,7 +926,7 @@ public class ClassifierBuilderPanel<T extends PathObjectClassifier> implements P
 		panelClassifierType.setVgap(5);
 
 		// Add in options button
-		btnEdit = new Button("Edit");
+		btnEdit = new Button("编辑");
 		btnEdit.setTooltip(new Tooltip("Edit advanced classifier options"));
 		btnEdit.setDisable(!(classifier instanceof Parameterizable));
 		btnEdit.setOnAction(e -> {

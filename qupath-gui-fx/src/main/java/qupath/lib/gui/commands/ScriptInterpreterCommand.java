@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -481,12 +481,12 @@ public class ScriptInterpreterCommand implements PathCommand {
 				engine.put(defaultImageServerName, imageData == null ? null : imageData.getServer());
 				updateVariableTable();
 			});
-			MenuItem miAddProject = new MenuItem("Project");
+			MenuItem miAddProject = new MenuItem("工程");
 			miAddProject.setOnAction(e -> {
 				engine.put(defaultProjectName, qupath.getProject());
 				updateVariableTable();
 			});
-			MenuItem miAddScriptingHelpers = new MenuItem("Scripting helpers");
+			MenuItem miAddScriptingHelpers = new MenuItem("脚本帮助");
 			miAddScriptingHelpers.setOnAction(e -> {
 				engine.put(defaultScriptingHelperName, new QPEx());
 				updateVariableTable();

@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -56,12 +56,12 @@ public class ProjectCreateCommand implements PathCommand {
 		if (dir == null)
 			return;
 		if (!dir.isDirectory()) {
-			logger.error(dir + " is not a valid project directory!");
+			logger.error(dir + " 不是有效的工程目录!");
 		}
 		for (File f : dir.listFiles()) {
 			if (!f.isHidden()) {
-				logger.error("Cannot create project for non-empty directory {}", dir);
-				DisplayHelpers.showErrorMessage("Project creator", "Project directory must be empty!");
+				logger.error("无法从非空目录 {} 中创建工程", dir);
+				DisplayHelpers.showErrorMessage("工程创建", "工程目录应为空!");
 				return;
 			}
 		}

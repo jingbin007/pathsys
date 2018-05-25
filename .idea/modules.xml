@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/qupath.iml" filepath="$PROJECT_DIR$/qupath.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-core/qupath-core.iml" filepath="$PROJECT_DIR$/qupath-core/qupath-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-core-awt/qupath-core-awt.iml" filepath="$PROJECT_DIR$/qupath-core-awt/qupath-core-awt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-core-processing/qupath-core-processing.iml" filepath="$PROJECT_DIR$/qupath-core-processing/qupath-core-processing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-core-processing-awt/qupath-core-processing-awt.iml" filepath="$PROJECT_DIR$/qupath-core-processing-awt/qupath-core-processing-awt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-extension-ij/qupath-extension-ij.iml" filepath="$PROJECT_DIR$/qupath-extension-ij/qupath-extension-ij.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-extension-input/qupath-extension-input.iml" filepath="$PROJECT_DIR$/qupath-extension-input/qupath-extension-input.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-extension-opencv/qupath-extension-opencv.iml" filepath="$PROJECT_DIR$/qupath-extension-opencv/qupath-extension-opencv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-extension-openslide/qupath-extension-openslide.iml" filepath="$PROJECT_DIR$/qupath-extension-openslide/qupath-extension-openslide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-extension-pen/qupath-extension-pen.iml" filepath="$PROJECT_DIR$/qupath-extension-pen/qupath-extension-pen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-extension-script-editor/qupath-extension-script-editor.iml" filepath="$PROJECT_DIR$/qupath-extension-script-editor/qupath-extension-script-editor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-gui-fx/qupath-gui-fx.iml" filepath="$PROJECT_DIR$/qupath-gui-fx/qupath-gui-fx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-processing-ij/qupath-processing-ij.iml" filepath="$PROJECT_DIR$/qupath-processing-ij/qupath-processing-ij.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qupath-processing-opencv/qupath-processing-opencv.iml" filepath="$PROJECT_DIR$/qupath-processing-opencv/qupath-processing-opencv.iml" />
+    </modules>
+  </component>
+</project>

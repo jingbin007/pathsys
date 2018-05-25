@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -436,24 +436,24 @@ public class DefaultScriptEditor implements ScriptEditor {
 //		dialog.setOnCloseRequest(e -> attemptToQuitScriptEditor());
 		if (qupath != null)
 			dialog.initOwner(qupath.getStage());
-		dialog.setTitle("Script editor");
+		dialog.setTitle("脚本编辑器");
 		
 		MenuBar menubar = new MenuBar();
 
 		// File menu
-		Menu menuFile = new Menu("File");
+		Menu menuFile = new Menu("文件");
 		QuPathGUI.addMenuItems(
 				menuFile,
-				createNewAction("New"),
-				createOpenAction("Open..."),
+				createNewAction("新建"),
+				createOpenAction("打开..."),
 				null,
-				createSaveAction("Save", false),
-				createSaveAction("Save As...", true),
+				createSaveAction("存储", false),
+				createSaveAction("存储为...", true),
 				null,
-				createRevertAction("Revert/Refresh"),
+				createRevertAction("返回/刷新"),
 				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(autoRefreshFiles, "Auto refresh files")),
 				null,
-				createCloseAction("Close script")
+				createCloseAction("关闭脚本")
 //				null,
 //				createExitAction("Exit") // Exit actually dramatically quits the entire application...
 				);
@@ -463,7 +463,7 @@ public class DefaultScriptEditor implements ScriptEditor {
 		
 
 		// Edit menu
-		Menu menuEdit = new Menu("Edit");
+		Menu menuEdit = new Menu("编辑");
 		QuPathGUI.addMenuItems(
 				menuEdit,
 				undoAction,
@@ -499,7 +499,7 @@ public class DefaultScriptEditor implements ScriptEditor {
 		menubar.getMenus().add(menuEdit);
 
 		// Languages menu - ensure each language only gets added once
-		Menu menuLanguages = new Menu("Language");
+		Menu menuLanguages = new Menu("语言");
 		bgLanguages = new ToggleGroup();
 		RadioMenuItem radioMenuItem;
 		for (Language language : new LinkedHashSet<>(availableLanguages)) {
@@ -521,27 +521,27 @@ public class DefaultScriptEditor implements ScriptEditor {
 		menubar.getMenus().add(menuLanguages);
 
 		// Run menu
-		Menu menuRun = new Menu("Run");
+		Menu menuRun = new Menu("运行");
 		QuPathGUI.addMenuItems(
 				menuRun,
-				createRunScriptAction("Run", false),
-				createRunScriptAction("Run selected", true),
-				createRunProjectScriptAction("Run for project", true),
-				createRunProjectScriptAction("Run for project (without save)", false),
+				createRunScriptAction("运行", false),
+				createRunScriptAction("运行所选内容", true),
+				createRunProjectScriptAction("运行工程", true),
+				createRunProjectScriptAction("运行工程 (未保存)", false),
 				null,
-				createKillRunningScriptAction("Kill running script"),
+				createKillRunningScriptAction("终端运行脚本"),
 				null,
-				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(useDefaultBindings, "Include default bindings")),
-				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(sendLogToConsole, "Send output to log")),
-				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(outputScriptStartTime, "Log script start time")),
-				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(autoClearConsole, "Auto clear console"))
+				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(useDefaultBindings, "包含绑定对象")),
+				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(sendLogToConsole, "将结果输出到日志")),
+				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(outputScriptStartTime, "日志起始记录时间")),
+				QuPathGUI.createCheckMenuItem(QuPathGUI.createSelectableCommandAction(autoClearConsole, "自动清空控制台"))
 				);
 		menubar.getMenus().add(menuRun);
 
 		// File list
 		BorderPane panelList = new BorderPane();
 //		label.setFont(label.getFont().deriveFont(12f));
-		TitledPane titledScripts = new TitledPane("Scripts", listScripts);
+		TitledPane titledScripts = new TitledPane("脚本", listScripts);
 		titledScripts.prefWidthProperty().bind(panelList.widthProperty());
 		titledScripts.prefHeightProperty().bind(panelList.heightProperty());
 		titledScripts.setCollapsible(false);

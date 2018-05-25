@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -278,7 +278,7 @@ public class WorkflowPanel {
 		builder = new WizardStepBuilder("Automated TMA dearraying")
 				.essential()
 				.setDescriptionByResource(base + count + "/description.html")
-				.setAction(qupath.createPluginAction("TMA dearrayer", "qupath.imagej.detect.dearray.TMADearrayerPluginIJ", false, null));
+				.setAction(qupath.createPluginAction("TMA逆阵列化", "qupath.imagej.detect.dearray.TMADearrayerPluginIJ", false, null));
 				;
 		count++;
 		steps.add(builder.build());
@@ -315,7 +315,7 @@ public class WorkflowPanel {
 		count++;
 		steps.add(builder.build());
 
-		Action action = qupath.createCommandAction("qupath.opencv.classify.OpenCvClassifierCommand", "Create detection classifier", qupath);
+		Action action = qupath.createCommandAction("qupath.opencv.classify.OpenCvClassifierCommand", "创建检测分类器", qupath);
 		builder = new WizardStepBuilder("Set up & run tumor classifier")
 				.essential()
 				.setDescriptionByResource(base + count + "/description.html")

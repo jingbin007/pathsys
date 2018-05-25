@@ -2,7 +2,7 @@
  * #%L
  * This file is part of QuPath.
  * %%
- * Copyright (C) 2014 - 2016 The Queen's University of Belfast, Northern Ireland
+ * Copyright (C) 2014 - 2018 The Queen's University of Belfast, Northern Ireland
  * Contact: IP Management (ipmanagement@qub.ac.uk)
  * %%
  * This program is free software: you can redistribute it and/or modify
@@ -147,7 +147,7 @@ public class ProjectBrowser implements ImageDataChangeListener<BufferedImage> {
 			}
 		});
 
-		TitledPane titledTree = new TitledPane("Image list", tree);
+		TitledPane titledTree = new TitledPane("图像列表", tree);
 		titledTree.setCollapsible(false);
 		titledTree.setMaxHeight(Double.MAX_VALUE);
 		
